@@ -1,0 +1,17 @@
+.FavIcon {
+   box-sizing: border-box;
+   width: 30px;
+   height: 30px;
+   border-radius: 50%;
+   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.1);
+   background-color: white;
+   position: absolute;
+   top: 20px;
+   right: 20px;
+   display: flex;
+   justify-content: center;
+}
+
+.Fav {
+   background-image: linear-gradient(to left, #ecbcb3, #eaa79e);
+}
