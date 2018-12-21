@@ -1,0 +1,31 @@
+.NavigationItem {
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 1;
+   color: #949ea0;
+   margin-right: 61px;
+   display: flex;
+}
+
+.NavigationItem a {
+   display: flex;
+   align-items: center;
+   text-decoration: none;
+   color: inherit;
+}
+
+.Login {
+   color: #df9186;
+   margin-right: 30px;
+}
+
+.NewAccount {
+   box-sizing: border-box;
+   padding: 12px 27px 14px;
+   color: white;
+   height: 40px;
+   margin-right: 20px;
+   border-radius: 50px;
+   box-shadow: 0 15px 20px 0 rgba(234, 168, 159, 0.2);
+   background-image: linear-gradient(to left, #ecbcb3, #eaa79e);
+}
