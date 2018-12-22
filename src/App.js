@@ -4,6 +4,7 @@ import Layout from './hoc/Layout/Layout';
 import Banner from './components/Banner/Banner';
 import FlowerGrid from './components/FlowerGrid/FlowerGrid';
 import Modal from './components/UI/Modal/Modal';
+import Signup from './containers/Signup/Signup';
 
 class App extends Component {
   render() {
@@ -11,7 +12,9 @@ class App extends Component {
       <Layout>
         <Banner />
         <FlowerGrid />
-        <Modal>Modal content</Modal>
+        <Modal>
+          <Signup />
+        </Modal>
       </Layout>
     );
   }

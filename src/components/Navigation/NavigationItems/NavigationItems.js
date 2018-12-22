@@ -9,7 +9,7 @@ const navigationItems = () => (
       <NavigationItem>Latest Sightings</NavigationItem>
       <NavigationItem>Favourites</NavigationItem>
       <NavigationItem itemType="Login">Login</NavigationItem>
-      <NavigationItem itemType="NewAccount">New Account</NavigationItem>
+      <NavigationItem itemType="Signup">New Account</NavigationItem>
    </ul>
 );
 
