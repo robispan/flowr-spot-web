@@ -5,7 +5,7 @@ import Banner from './components/Banner/Banner';
 import FlowerGrid from './components/FlowerGrid/FlowerGrid';
 import Modal from './components/UI/Modal/Modal';
 import Signup from './containers/Signup/Signup';
-// import Signin from './containers/Signin/Signin';
+import Signin from './containers/Signin/Signin';
 
 class App extends Component {
   render() {
