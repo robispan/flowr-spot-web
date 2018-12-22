@@ -1,33 +1,12 @@
 import React, { Component } from 'react';
 
-import classes from './Signup.module.css';
+import classes from './Signin.module.css';
 import Form from '../../components/UI/Form/Form';
 import Input from '../../components/UI/Input/Input';
 
-class Signup extends Component {
+class Signin extends Component {
    state = {
-      signupForm: {
-         fname: {
-            type: 'text',
-            value: '',
-            label: 'First name',
-            fullWidth: false,
-            required: false
-         },
-         lname: {
-            type: 'text',
-            value: '',
-            label: 'Last name',
-            fullWidth: false,
-            required: false
-         },
-         birthdate: {
-            type: 'text',
-            value: '',
-            label: 'Date of Birth',
-            fullWidth: true,
-            required: false
-         },
+      signinForm: {
          email: {
             type: 'email',
             value: '',
@@ -45,26 +24,26 @@ class Signup extends Component {
       }
    }
 
-   signupHandler = (event) => {
+   signinHandler = (event) => {
       event.preventDefault();
-      console.log('signup submitted');
+      console.log('signin submitted');
    }
 
    render() {
       const formElementsArray = [];
-      for (let key in this.state.signupForm) {
+      for (let key in this.state.signinForm) {
          formElementsArray.push({
             id: key,
-            config: this.state.signupForm[key]
+            config: this.state.signinForm[key]
          });
       }
 
       return (
-         <div className={classes.Signup} >
+         <div>
             <Form
-               submit={this.signupHandler}
-               title="Create an Account"
-               btnLabel="Create Account" >
+               submit={this.signinHandler}
+               title="Welcome Back"
+               btnLabel="Login to your Account" >
                {formElementsArray.map(formElement => (
                   <Input
                      key={formElement.id}
@@ -75,10 +54,10 @@ class Signup extends Component {
                      required={formElement.config.required} />
                ))}
             </Form>
-            <p className={classes.CancelMsg} >I don’t want to Register</p>
+            <p className={classes.CancelMsg} >I don’t want to Login</p>
          </div>
       );
    }
 }
 
-export default Signup;
+export default Signin;

@@ -1,16 +1,15 @@
-.Signup form {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-between;
+.Signup {
+   position: relative;
 }
 
-.Title {
-   height: 20px;
-   font-size: 20px;
-   font-weight: 500;
+.CancelMsg {
+   height: 13px;
+   width: 380px;
+   opacity: 0.5;
+   font-size: 13px;
    line-height: 1;
-   color: #334144;
-   margin: 0;
-   margin-bottom: 30px;
+   text-align: center;
+   color: white;
+   margin-top: 50px;
+   position: absolute;
 }
-
