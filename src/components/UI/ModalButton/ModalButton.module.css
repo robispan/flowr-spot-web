@@ -1,8 +1,7 @@
 .ModalButton {
    height: 50px;
-   width: 100%;
-   padding: 0;
-   margin-top: 10px;
+   padding: 0 30px;
+   margin: 10px auto 0;
    border-radius: 3px;
    box-shadow: 0 15px 20px 0 rgba(234, 168, 159, 0.2);
    background-image: linear-gradient(to left, #ecbcb3, #eaa79e);
@@ -13,4 +12,9 @@
    font-weight: 500;
    color: white;
    cursor: pointer;
+}
+
+.FullWidth {
+   width: 100%;
+   margin: 10px 0 0;
 }

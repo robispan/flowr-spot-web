@@ -7,35 +7,42 @@ import FlowerGrid from './components/FlowerGrid/FlowerGrid';
 import Signup from './containers/Signup/Signup';
 import Signin from './containers/Signin/Signin';
 import Profile from './containers/Profile/Profile';
+import SignupSuccessMsg from './components/UI/SignupSuccessMsg/SignupSuccessMsg';
+import SigninSuccessMsg from './components/UI/SigninSuccessMsg/SigninSuccessMsg';
+import * as actionTypes from './store/actions';
 
 class App extends Component {
   render() {
-    let popup;
-    switch(this.props.modal) {
+    let modalView;
+    switch (this.props.modal) {
       case "signup":
-        popup = (
-          <Signup />
-        );
+        modalView = <Signup />;
         break;
       case "signin":
-        popup = (
-          <Signin />
-        );
+        modalView = <Signin />;
         break;
       case "profile":
-        popup = (
-          <Profile />
+        modalView = <Profile />;
+        break;
+      case "signupSuccessMsg":
+        modalView = <SignupSuccessMsg dismiss={this.props.goToSignin} />;
+        break;
+      case "signinSuccessMsg":
+        modalView = (
+          <SigninSuccessMsg 
+            dismiss={this.props.closeModal}
+            goToProfile={this.props.goToProfile} />
         );
         break;
-      default: 
-          popup = null;
+      default:
+        modalView = null;
     }
 
     return (
       <Layout>
         <Banner />
         <FlowerGrid />
-        {popup}
+        {modalView}
       </Layout>
     );
   }
@@ -43,8 +50,17 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    modal: state.modalState
+    modal: state.modalState,
+    alertMessage: state.alertMsg
   };
-}
+};
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    goToSignin: () => dispatch({ type: actionTypes.VIEW_SIGNIN }),
+    closeModal: () => dispatch({ type: actionTypes.MODAL_CANCEL }),
+    goToProfile: () => dispatch({ type: actionTypes.VIEW_PROFILE })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

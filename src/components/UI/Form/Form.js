@@ -8,7 +8,7 @@ const form = (props) => (
       <p className={classes.Title} >{props.title}</p>
       <form onSubmit={props.submit} >
          {props.children}
-         <ModalButton label={props.btnLabel} />
+         <ModalButton label={props.btnLabel} type="submit" fullWidth />
       </form>
    </div>
 );

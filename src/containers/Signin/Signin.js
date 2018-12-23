@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
+import { connect } from 'react-redux';
 
 import classes from './Signin.module.css';
 import Form from '../../components/UI/Form/Form';
 import Input from '../../components/UI/Input/Input';
 import Modal from '../../components/UI/Modal/Modal';
+import * as actionTypes from '../../store/actions';
 
 class Signin extends Component {
    state = {
@@ -35,6 +37,7 @@ class Signin extends Component {
       axios.post('/users/login', signinData)
          .then(response => {
             console.log(response);
+            this.props.onSigninSuccess();
          })
          .catch(error => {
             console.log(error);
@@ -66,7 +69,7 @@ class Signin extends Component {
          <Modal topOffset="361px" >
             <div className={classes.Signin} >
                <Form
-                  submit={this.props.onSignin}
+                  submit={this.signinHandler}
                   title="Welcome Back"
                   btnLabel="Login to your Account" >
                   {formElementsArray.map(formElement => (
@@ -87,4 +90,10 @@ class Signin extends Component {
    }
 }
 
-export default Signin;
+const mapDispatchToProps = dispatch => {
+   return {
+      onSigninSuccess: () => dispatch({ type: actionTypes.SIGNIN_SUCCESS })
+   };
+};
+
+export default connect(null, mapDispatchToProps)(Signin);

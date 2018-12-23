@@ -1,0 +1,15 @@
+.SigninSuccessMsg {
+   padding: 40px 50px 30px;
+}
+
+.Message {
+   margin: 0;
+   margin-bottom: 35px;
+}
+
+.ButtonContainer {
+   width: 70%;
+   margin: 0 auto;
+   display: flex;
+   justify-content: space-between;
+}
