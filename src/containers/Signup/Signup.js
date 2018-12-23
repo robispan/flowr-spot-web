@@ -4,6 +4,7 @@ import axios from '../../axios';
 import classes from './Signup.module.css';
 import Form from '../../components/UI/Form/Form';
 import Input from '../../components/UI/Input/Input';
+import Modal from '../../components/UI/Modal/Modal';
 
 class Signup extends Component {
    state = {
@@ -86,24 +87,26 @@ class Signup extends Component {
       }
 
       return (
-         <div className={classes.Signup} >
-            <Form
-               submit={this.signupHandler}
-               title="Create an Account"
-               btnLabel="Create Account" >
-               {formElementsArray.map(formElement => (
-                  <Input
-                     key={formElement.id}
-                     type={formElement.config.type}
-                     label={formElement.config.label}
-                     fullWidth={formElement.config.fullWidth}
-                     required={formElement.config.required}
-                     value={formElement.config.value}
-                     inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
-               ))}
-            </Form>
-            <p className={classes.CancelMsg} >I don’t want to Register</p>
-         </div>
+         <Modal topOffset="361px" >
+            <div className={classes.Signup} >
+               <Form
+                  submit={this.signupHandler}
+                  title="Create an Account"
+                  btnLabel="Create Account" >
+                  {formElementsArray.map(formElement => (
+                     <Input
+                        key={formElement.id}
+                        type={formElement.config.type}
+                        label={formElement.config.label}
+                        fullWidth={formElement.config.fullWidth}
+                        required={formElement.config.required}
+                        value={formElement.config.value}
+                        inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
+                  ))}
+               </Form>
+               <p className={classes.CancelMsg} >I don’t want to Register</p>
+            </div>
+         </Modal>
       );
    }
 }

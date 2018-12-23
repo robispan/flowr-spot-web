@@ -4,6 +4,7 @@ import axios from '../../axios';
 import classes from './Signin.module.css';
 import Form from '../../components/UI/Form/Form';
 import Input from '../../components/UI/Input/Input';
+import Modal from '../../components/UI/Modal/Modal';
 
 class Signin extends Component {
    state = {
@@ -62,24 +63,26 @@ class Signin extends Component {
       }
 
       return (
-         <div className={classes.Signin} >
-            <Form
-               submit={this.signinHandler}
-               title="Welcome Back"
-               btnLabel="Login to your Account" >
-               {formElementsArray.map(formElement => (
-                  <Input
-                     key={formElement.id}
-                     type={formElement.config.type}
-                     label={formElement.config.label}
-                     fullWidth={formElement.config.fullWidth}
-                     required={formElement.config.required}
-                     value={formElement.config.value}
-                     inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
-               ))}
-            </Form>
-            <p className={classes.CancelMsg} >I don’t want to Login</p>
-         </div>
+         <Modal topOffset="361px" >
+            <div className={classes.Signin} >
+               <Form
+                  submit={this.props.onSignin}
+                  title="Welcome Back"
+                  btnLabel="Login to your Account" >
+                  {formElementsArray.map(formElement => (
+                     <Input
+                        key={formElement.id}
+                        type={formElement.config.type}
+                        label={formElement.config.label}
+                        fullWidth={formElement.config.fullWidth}
+                        required={formElement.config.required}
+                        value={formElement.config.value}
+                        inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
+                  ))}
+               </Form>
+               <p className={classes.CancelMsg} >I don’t want to Login</p>
+            </div>
+         </Modal>
       );
    }
 }
