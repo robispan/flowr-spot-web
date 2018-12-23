@@ -6,6 +6,7 @@ import FlowerGrid from './components/FlowerGrid/FlowerGrid';
 import Modal from './components/UI/Modal/Modal';
 import Signup from './containers/Signup/Signup';
 import Signin from './containers/Signin/Signin';
+import Profile from './containers/Profile/Profile';
 
 class App extends Component {
   render() {
@@ -13,7 +14,7 @@ class App extends Component {
       <Layout>
         <Banner />
         <FlowerGrid />
-        <Modal>
+        <Modal topOffset="150px">
           <Signup />
         </Modal>
       </Layout>

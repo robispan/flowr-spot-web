@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from '../../axios';
 
 import classes from './Signup.module.css';
 import Form from '../../components/UI/Form/Form';

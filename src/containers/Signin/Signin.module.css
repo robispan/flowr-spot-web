@@ -1,3 +1,9 @@
+.Signin {
+   width: 440px;
+   padding: 30px;
+   box-sizing: border-box;
+}
+
 .CancelMsg {
    height: 13px;
    width: 380px;
