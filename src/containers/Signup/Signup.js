@@ -60,7 +60,6 @@ class Signup extends Component {
       };
       axios.post('/users/register', signupData)
          .then(response => {
-            console.log(response);
             this.props.onSignupSuccess();
          })
          .catch(error => {

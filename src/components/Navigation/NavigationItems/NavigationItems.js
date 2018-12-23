@@ -7,23 +7,42 @@ import * as actionTypes from '../../../store/actions';
 
 class NavigationItems extends Component {
    render() {
+      let userNavItems = (
+         <>
+            <NavigationItem type="Login" click={this.props.onSigninLink} >Login</NavigationItem>
+            <NavigationItem type="Signup" click={this.props.onSignupLink} >New Account</NavigationItem>
+         </>
+      );
+      if (this.props.auth) {
+         userNavItems = (
+            <NavigationItem type="User" click={this.props.onProfileLink} >{this.props.name}</NavigationItem>
+         );
+      }
+
       return (
          <ul className={classes.NavigationItems}>
             <NavigationItem>Flowers</NavigationItem>
             <NavigationItem>Latest Sightings</NavigationItem>
             <NavigationItem>Favourites</NavigationItem>
-            <NavigationItem type="Login" click={this.props.onSigninLink} >Login</NavigationItem>
-            <NavigationItem type="Signup" click={this.props.onSignupLink} >New Account</NavigationItem>
+            {userNavItems}
          </ul>
       );
    }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
    return {
-      onSigninLink: () => dispatch({ type: actionTypes.VIEW_SIGNIN }),
-      onSignupLink: () => dispatch({ type: actionTypes.VIEW_SIGNUP })
+      auth: state.authToken,
+      name: state.name
    };
 };
 
-export default connect(null, mapDispatchToProps)(NavigationItems);
+const mapDispatchToProps = dispatch => {
+   return {
+      onSigninLink: () => dispatch({ type: actionTypes.VIEW_SIGNIN }),
+      onSignupLink: () => dispatch({ type: actionTypes.VIEW_SIGNUP }),
+      onProfileLink: () => dispatch({ type: actionTypes.VIEW_PROFILE })
+   };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationItems);

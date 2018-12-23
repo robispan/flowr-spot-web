@@ -41,7 +41,7 @@ class App extends Component {
     return (
       <Layout>
         <Banner />
-        <FlowerGrid />
+        <FlowerGrid auth={this.props.auth} />
         {modalView}
       </Layout>
     );
@@ -51,7 +51,8 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     modal: state.modalState,
-    alertMessage: state.alertMsg
+    alertMessage: state.alertMsg,
+    auth: state.authToken
   };
 };
 

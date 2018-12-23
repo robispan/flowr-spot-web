@@ -36,8 +36,27 @@ class Signin extends Component {
       };
       axios.post('/users/login', signinData)
          .then(response => {
-            console.log(response);
-            this.props.onSigninSuccess();
+            this.signinSuccessHandler(response.data.auth_token);
+         })
+         .catch(error => {
+            console.log(error);
+         });
+   }
+
+   signinSuccessHandler = (token) => {
+      axios.get('/users/me',
+         {
+            headers: {
+               "Authorization": token
+            }
+         })
+         .then(response => {
+            const data = {
+               token: token,
+               userData: response.data.user
+            };
+
+            this.props.onSigninSuccess(data);
          })
          .catch(error => {
             console.log(error);
@@ -92,7 +111,7 @@ class Signin extends Component {
 
 const mapDispatchToProps = dispatch => {
    return {
-      onSigninSuccess: () => dispatch({ type: actionTypes.SIGNIN_SUCCESS })
+      onSigninSuccess: (data) => dispatch({ type: actionTypes.SIGNIN_SUCCESS, payload: data })
    };
 };
 

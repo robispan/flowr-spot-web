@@ -27,3 +27,11 @@
    box-shadow: 0 15px 20px 0 rgba(234, 168, 159, 0.2);
    background-image: linear-gradient(to left, #ecbcb3, #eaa79e);
 }
+
+.User {
+   margin-right: 20px;
+}
+
+.User img {
+   margin-left: 20px;
+}

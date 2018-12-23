@@ -12,6 +12,10 @@
    justify-content: center;
 }
 
+.FavIcon img {
+   width: 13px;
+}
+
 .Fav {
    background-image: linear-gradient(to left, #ecbcb3, #eaa79e);
 }

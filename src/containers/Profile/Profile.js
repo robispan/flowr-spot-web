@@ -14,22 +14,22 @@ class Profile extends Component {
          <Modal topOffset="150px" >
             <div className={classes.Profile}>
                <div className={classes.Header}>
-                  <p className={classes.Title} >Michael Berry</p>
+                  <p className={classes.Title} >{this.props.name}</p>
                   <p className={classes.Subtitle} >47 sightings</p>
                   <img src={profilePic} alt="profile pic" />
                </div>
                <div className={classes.Info}>
                   <p className={classes.Label} >First Name</p>
-                  <p className={classes.Data} >Michael</p>
+                  <p className={classes.Data} >{this.props.fname}</p>
                   <p className={classes.Label} >Last Name</p>
-                  <p className={classes.Data} >Berry</p>
+                  <p className={classes.Data} >{this.props.lname}</p>
                   <p className={classes.Label} >Date of Birth</p>
                   <p className={classes.Data} >May 20, 1980</p>
                   <p className={classes.Label} >Email Address</p>
                   <p className={classes.Data} >michael.berry@gmail.com</p>
                </div>
                <div className={classes.ButtonContainer}>
-                  <ModalButton label="Logout" />
+                  <ModalButton label="Logout" click={this.props.onLogout} />
                </div>
                <XButton click={this.props.onCancel} />
             </div>
@@ -38,10 +38,19 @@ class Profile extends Component {
    }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = state => {
    return {
-      onCancel: () => dispatch({ type: actionTypes.MODAL_CANCEL })
+      name: state.name,
+      fname: state.fname,
+      lname: state.lname
    };
 };
 
-export default connect(null, mapDispatchToProps)(Profile);
+const mapDispatchToProps = dispatch => {
+   return {
+      onCancel: () => dispatch({ type: actionTypes.MODAL_CANCEL }),
+      onLogout: () => dispatch({ type: actionTypes.LOGOUT })
+   };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
