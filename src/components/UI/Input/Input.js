@@ -4,7 +4,6 @@ import classes from './Input.module.scss';
 
 class Input extends Component {
    state = {
-      textEntered: '',
       focus: false
    }
 
@@ -16,10 +15,6 @@ class Input extends Component {
       this.setState({ focus: false });
    }
 
-   inputChangedHandler = (event) => {
-      this.setState({ textEntered: event.target.value });
-   }
-
    render() {
       const inputClasses = [classes.Input];
       if (this.props.fullWidth) {
@@ -27,7 +22,7 @@ class Input extends Component {
       }
 
       const labelClasses = [classes.Label];
-      if (this.state.focus || this.state.textEntered) {
+      if (this.state.focus || this.props.value) {
          labelClasses.push(classes.Move);
       }
 
@@ -36,9 +31,10 @@ class Input extends Component {
             <input
                onFocus={this.focusHandler}
                onBlur={this.focusOutHandler}
-               onChange={this.inputChangedHandler}
+               onChange={this.props.inputChanged}
                type={this.props.type}
-               required={this.props.required} />
+               required={this.props.required}
+               value={this.props.value} />
             <p className={labelClasses.join(' ')} >{this.props.label}</p>
          </div>
       );

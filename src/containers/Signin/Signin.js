@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from '../../axios';
 
 import classes from './Signin.module.css';
 import Form from '../../components/UI/Form/Form';
@@ -26,7 +27,29 @@ class Signin extends Component {
 
    signinHandler = (event) => {
       event.preventDefault();
-      console.log('signin submitted');
+      const signinData = {
+         password: this.state.signinForm.password.value,
+         email: this.state.signinForm.email.value
+      };
+      axios.post('/users/login', signinData)
+         .then(response => {
+            console.log(response);
+         })
+         .catch(error => {
+            console.log(error);
+         });
+   }
+
+   inputChangedHandler = (event, inputIdentifier) => {
+      const updatedSigninForm = {
+         ...this.state.signinForm
+      };
+      const updatedFormElement = {
+         ...updatedSigninForm[inputIdentifier]
+      };
+      updatedFormElement.value = event.target.value;
+      updatedSigninForm[inputIdentifier] = updatedFormElement;
+      this.setState({ signinForm: updatedSigninForm });
    }
 
    render() {
@@ -48,10 +71,11 @@ class Signin extends Component {
                   <Input
                      key={formElement.id}
                      type={formElement.config.type}
-                     value={formElement.config.value}
                      label={formElement.config.label}
                      fullWidth={formElement.config.fullWidth}
-                     required={formElement.config.required} />
+                     required={formElement.config.required}
+                     value={formElement.config.value}
+                     inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
                ))}
             </Form>
             <p className={classes.CancelMsg} >I don’t want to Login</p>

@@ -48,7 +48,32 @@ class Signup extends Component {
 
    signupHandler = (event) => {
       event.preventDefault();
-      console.log('signup submitted');
+      const signupData = {
+         first_name: this.state.signupForm.fname.value,
+         last_name: this.state.signupForm.lname.value,
+         date_of_birth: this.state.signupForm.birthdate.value,
+         password: this.state.signupForm.password.value,
+         email: this.state.signupForm.email.value
+      };
+      axios.post('/users/register', signupData)
+         .then(response => {
+            console.log(response);
+         })
+         .catch(error => {
+            console.log(error);
+         });
+   }
+
+   inputChangedHandler = (event, inputIdentifier) => {
+      const updatedSignupForm = {
+         ...this.state.signupForm
+      };
+      const updatedFormElement = {
+         ...updatedSignupForm[inputIdentifier]
+      };
+      updatedFormElement.value = event.target.value;
+      updatedSignupForm[inputIdentifier] = updatedFormElement;
+      this.setState({ signupForm: updatedSignupForm });
    }
 
    render() {
@@ -70,10 +95,11 @@ class Signup extends Component {
                   <Input
                      key={formElement.id}
                      type={formElement.config.type}
-                     value={formElement.config.value}
                      label={formElement.config.label}
                      fullWidth={formElement.config.fullWidth}
-                     required={formElement.config.required} />
+                     required={formElement.config.required}
+                     value={formElement.config.value}
+                     inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
                ))}
             </Form>
             <p className={classes.CancelMsg} >I don’t want to Register</p>

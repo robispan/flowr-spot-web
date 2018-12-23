@@ -15,7 +15,7 @@ class App extends Component {
         <Banner />
         <FlowerGrid />
         <Modal topOffset="150px">
-          <Signup />
+          <Signin />
         </Modal>
       </Layout>
     );
