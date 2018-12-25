@@ -12,9 +12,9 @@ export const getRandomFlowers = () => {
       });
 }
 
-export const syncFavs = (flowers, auth) => {
+export const syncFavs = (flowers, authToken) => {
    const headers = {
-      'Authorization': auth
+      'Authorization': authToken
    };
    return axios.get("/flowers/favorites", { headers: headers })
       .then(response => {
@@ -40,10 +40,10 @@ export const syncFavs = (flowers, auth) => {
       });
 }
 
-export const deleteFav = (id, index, auth, flowers) => {
+export const deleteFav = (id, index, authToken, flowers) => {
    const favId = flowers[index].favId;
    const headers = {
-      'Authorization': auth
+      'Authorization': authToken
    };
    return axiosproxy.delete(`/flowers/${id}/favorites/${favId}`, { headers: headers })
       .then(_response => {
@@ -62,9 +62,9 @@ export const deleteFav = (id, index, auth, flowers) => {
       });
 }
 
-export const addFav = (id, index, auth, flowers) => {
+export const addFav = (id, index, authToken, flowers) => {
    const headers = {
-      'Authorization': auth
+      'Authorization': authToken
    };
    return axios.post("/flowers/" + id + "/favorites", null, { headers: headers })
       .then(response => {

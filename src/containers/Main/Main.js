@@ -39,7 +39,7 @@ class Main extends Component {
       return (
          <>
             <Banner />
-            <FlowerGrid auth={this.props.auth} />
+            <FlowerGrid authToken={this.props.authToken} />
             {modalView}
          </>
       );
@@ -50,7 +50,7 @@ const mapStateToProps = state => {
    return {
       modal: state.modalState,
       alertMessage: state.alertMsg,
-      auth: state.authToken
+      authToken: state.authToken
    };
 };
 

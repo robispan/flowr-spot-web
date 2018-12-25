@@ -7,7 +7,7 @@ import FlowerCard from './FlowerCard/FlowerCard';
 class FlowerGrid extends Component {
    state = {
       flowers: null,
-      auth: false
+      loggedIn: false
    }
 
    componentDidMount() {
@@ -18,7 +18,7 @@ class FlowerGrid extends Component {
    }
 
    componentDidUpdate() {
-      if (this.state.auth && !this.props.auth) {
+      if (this.state.loggedIn && !this.props.authToken) {
          // clean up user data from state
          const updatedFlowers = this.state.flowers.map(flower => {
             return {
@@ -29,14 +29,14 @@ class FlowerGrid extends Component {
          });
          this.setState({
             flowers: updatedFlowers,
-            auth: false
+            loggedIn: false
          });
       }
-      else if (!this.state.auth && this.props.auth) {
-         axiosHelpers.syncFavs(this.state.flowers, this.props.auth)
+      else if (!this.state.loggedIn && this.props.authToken) {
+         axiosHelpers.syncFavs(this.state.flowers, this.props.authToken)
             .then(flowersWithFavs => {
                this.setState({
-                  auth: this.props.auth,
+                  loggedIn: true,
                   flowers: flowersWithFavs
                });
             });
@@ -45,13 +45,13 @@ class FlowerGrid extends Component {
 
    toggleFav = (id, index) => {
       if (this.state.flowers[index].favorite) {
-         axiosHelpers.deleteFav(id, index, this.props.auth, this.state.flowers)
+         axiosHelpers.deleteFav(id, index, this.props.authToken, this.state.flowers)
             .then(updatedFlowers => {
                this.setState({ flowers: updatedFlowers });
             });
          return;
       }
-      axiosHelpers.addFav(id, index, this.props.auth, this.state.flowers)
+      axiosHelpers.addFav(id, index, this.props.authToken, this.state.flowers)
          .then(updatedFlowers => {
             this.setState({ flowers: updatedFlowers });
          });
@@ -74,7 +74,7 @@ class FlowerGrid extends Component {
                   picUrl={flower.profile_picture}
                   sightings={flower.sightings}
                   fav={flower.favorite}
-                  showFavBtn={this.props.auth}
+                  showFavBtn={this.props.authToken}
                   toggleFav={() => this.toggleFav(flower.id, i)} />
             ))}
          </div>
