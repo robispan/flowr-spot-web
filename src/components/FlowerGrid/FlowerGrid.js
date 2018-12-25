@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import axios from '../../axios';
-import axiosproxy from '../../axios-with-proxy';
 
+import * as axiosHelpers from '../../axiosHelpers';
 import classes from './FlowerGrid.module.css';
 import FlowerCard from './FlowerCard/FlowerCard';
 
@@ -12,85 +11,50 @@ class FlowerGrid extends Component {
    }
 
    componentDidMount() {
-      axios.get("/flowers/random",
-         {
-            headers: {
-               "Authorization": this.props.auth
-            }
-         })
-         .then(response => {
-            this.setState({ flowers: response.data.flowers });
-         })
-         .catch(error => {
-            console.log(error);
+      axiosHelpers.getRandomFlowers()
+         .then(res => {
+            this.setState({ flowers: res });
          });
    }
 
    componentDidUpdate() {
-      if (!this.props.auth || this.state.auth) return;
-      const headers = {
-         'Authorization': this.props.auth
-      };
-      axios.get("/flowers/favorites", { headers: headers })
-         .then(response => {
-            const favFlowers = response.data.fav_flowers;
-            const flowers = [...this.state.flowers];
-            favFlowers.forEach(favFlower => {
-               flowers.forEach((flower, index) => {
-                  if (favFlower.flower.id === flower.id) {
-                     const updatedFlower = {
-                        ...flower,
-                        favorite: true,
-                        favId: favFlower.id
-                     };
-                     flowers[index] = updatedFlower;
-                  }
+      if (this.state.auth && !this.props.auth) {
+         // clean up user data from state
+         const updatedFlowers = this.state.flowers.map(flower => {
+            return {
+               ...flower,
+               favorite: false,
+               favId: null
+            };
+         });
+         this.setState({
+            flowers: updatedFlowers,
+            auth: false
+         });
+      }
+      else if (!this.state.auth && this.props.auth) {
+         axiosHelpers.syncFavs(this.state.flowers, this.props.auth)
+            .then(flowersWithFavs => {
+               this.setState({
+                  auth: this.props.auth,
+                  flowers: flowersWithFavs
                });
             });
-            this.setState({ auth: this.props.auth, flowers: flowers });
-         })
-         .catch(error => {
-            console.log(error);
-         });
+      }
    }
 
    toggleFav = (id, index) => {
-      const headers = {
-         'Authorization': this.props.auth
-      };
       if (this.state.flowers[index].favorite) {
-         const favId = this.state.flowers[index].favId;
-         axiosproxy.delete(`/flowers/${id}/favorites/${favId}`, { headers: headers })
-            .then(_response => {
-               const updatedFlowers = [...this.state.flowers];
-               const updatedFlower = {
-                  ...updatedFlowers[index],
-                  favorite: false,
-                  favId: null
-               };
-               updatedFlowers[index] = updatedFlower;
+         axiosHelpers.deleteFav(id, index, this.props.auth, this.state.flowers)
+            .then(updatedFlowers => {
                this.setState({ flowers: updatedFlowers });
-            })
-            .catch(error => {
-               console.log(error);
             });
-      } else {
-         axios.post("/flowers/" + id + "/favorites", null, { headers: headers })
-            .then(response => {
-               const updatedFlowers = [...this.state.flowers];
-               const favId = response.data.fav_flower.id;
-               const updatedFlower = {
-                  ...updatedFlowers[index],
-                  favorite: true,
-                  favId: favId
-               };
-               updatedFlowers[index] = updatedFlower;
-               this.setState({ flowers: updatedFlowers });
-            })
-            .catch(error => {
-               console.log(error);
-            });
+         return;
       }
+      axiosHelpers.addFav(id, index, this.props.auth, this.state.flowers)
+         .then(updatedFlowers => {
+            this.setState({ flowers: updatedFlowers });
+         });
    }
 
    render() {
