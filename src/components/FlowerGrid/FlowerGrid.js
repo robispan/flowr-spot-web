@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
+import axiosproxy from '../../axios-with-proxy';
 
 import classes from './FlowerGrid.module.css';
 import FlowerCard from './FlowerCard/FlowerCard';
@@ -24,24 +25,23 @@ class FlowerGrid extends Component {
             console.log(error);
          });
    }
+
    componentDidUpdate() {
       if (!this.props.auth || this.state.auth) return;
       const headers = {
          'Authorization': this.props.auth
       };
-
       axios.get("/flowers/favorites", { headers: headers })
          .then(response => {
-            const favFlowerIds = response.data.fav_flowers.map(favFlower => {
-               return favFlower.flower.id;
-            });
+            const favFlowers = response.data.fav_flowers;
             const flowers = [...this.state.flowers];
-            favFlowerIds.forEach(id => {
+            favFlowers.forEach(favFlower => {
                flowers.forEach((flower, index) => {
-                  if (id === flower.id) {
+                  if (favFlower.flower.id === flower.id) {
                      const updatedFlower = {
                         ...flower,
-                        favorite: true
+                        favorite: true,
+                        favId: favFlower.id
                      };
                      flowers[index] = updatedFlower;
                   }
@@ -54,23 +54,43 @@ class FlowerGrid extends Component {
          });
    }
 
-   addFav = (id, index) => {
+   toggleFav = (id, index) => {
       const headers = {
          'Authorization': this.props.auth
       };
-      axios.post("/flowers/" + id + "/favorites", null, { headers: headers })
-         .then(response => {
-            const updatedFlowers = [...this.state.flowers];
-            const updatedFlower = {
-               ...updatedFlowers[index],
-               favorite: true
-            };
-            updatedFlowers[index] = updatedFlower;
-            this.setState({ flowers: updatedFlowers });
-         })
-         .catch(error => {
-            console.log(error);
-         });
+      if (this.state.flowers[index].favorite) {
+         const favId = this.state.flowers[index].favId;
+         axiosproxy.delete(`/flowers/${id}/favorites/${favId}`, { headers: headers })
+            .then(_response => {
+               const updatedFlowers = [...this.state.flowers];
+               const updatedFlower = {
+                  ...updatedFlowers[index],
+                  favorite: false,
+                  favId: null
+               };
+               updatedFlowers[index] = updatedFlower;
+               this.setState({ flowers: updatedFlowers });
+            })
+            .catch(error => {
+               console.log(error);
+            });
+      } else {
+         axios.post("/flowers/" + id + "/favorites", null, { headers: headers })
+            .then(response => {
+               const updatedFlowers = [...this.state.flowers];
+               const favId = response.data.fav_flower.id;
+               const updatedFlower = {
+                  ...updatedFlowers[index],
+                  favorite: true,
+                  favId: favId
+               };
+               updatedFlowers[index] = updatedFlower;
+               this.setState({ flowers: updatedFlowers });
+            })
+            .catch(error => {
+               console.log(error);
+            });
+      }
    }
 
    render() {
@@ -91,7 +111,7 @@ class FlowerGrid extends Component {
                   sightings={flower.sightings}
                   fav={flower.favorite}
                   showFavBtn={this.props.auth}
-                  addFav={() => this.addFav(flower.id, i)} />
+                  toggleFav={() => this.toggleFav(flower.id, i)} />
             ))}
          </div>
       );

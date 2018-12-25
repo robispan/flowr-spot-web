@@ -9,8 +9,11 @@ const flowerCard = (props) => {
 
    return (
       <div className={classes.FlowerCard}>
-         <img className={classes.ProfilePic} src={props.picUrl} alt={props.name} />
-         {props.showFavBtn ? <FavIcon fav={props.fav} click={props.addFav} /> : null}
+         <img 
+            className={classes.ProfilePic} 
+            src={props.picUrl} 
+            alt={props.name} />
+         {props.showFavBtn ? <FavIcon fav={props.fav} click={props.toggleFav} /> : null}
          <div className={classes.Content}>
             <p className={classes.Name}>{props.name}</p>
             <p className={classes.Latin}>{props.latin}</p>
