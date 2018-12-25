@@ -30,11 +30,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             modalState: null
          };
-         case actionTypes.SIGNUP_SUCCESS:
-            return {
-               ...state,
-               modalState: "signupSuccessMsg"
-            };
+      case actionTypes.SIGNUP_SUCCESS:
+         return {
+            ...state,
+            modalState: "signupSuccessMsg"
+         };
       case actionTypes.SIGNIN_SUCCESS:
          return {
             ...state,

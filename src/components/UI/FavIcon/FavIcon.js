@@ -9,8 +9,10 @@ const favIcon = (props) => {
    if (props.fav) classList.push(classes.Fav);
 
    return (
-      <div className={classList.join(" ")}>
-         <img src={props.fav ? starIconWhite : starIcon} alt="star icon" />
+      <div className={classList.join(" ") } onClick={props.click} >
+         <img 
+            src={props.fav ? starIconWhite : starIcon} 
+            alt="star icon" />
       </div>
    );
 }

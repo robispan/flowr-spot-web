@@ -10,7 +10,7 @@ const flowerCard = (props) => {
    return (
       <div className={classes.FlowerCard}>
          <img className={classes.ProfilePic} src={props.picUrl} alt={props.name} />
-         {props.showFav ? <FavIcon fav={props.fav} /> : null}
+         {props.showFavBtn ? <FavIcon fav={props.fav} click={props.addFav} /> : null}
          <div className={classes.Content}>
             <p className={classes.Name}>{props.name}</p>
             <p className={classes.Latin}>{props.latin}</p>
