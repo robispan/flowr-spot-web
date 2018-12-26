@@ -1,4 +1,4 @@
-import axios from '../../axios';
+import axios from '../../axios/axios';
 import * as actionTypes from './actionTypes';
 
 export const tryAutoSignin = (token) => {

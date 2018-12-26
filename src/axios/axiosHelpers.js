@@ -1,5 +1,5 @@
 import axios from './axios';
-import axiosproxy from './axios-with-proxy';
+import axiosproxy from './axiosWithProxy';
 
 export const getRandomFlowers = () => {
    return axios.get("/flowers/random")

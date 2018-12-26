@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import * as axiosHelpers from '../../axiosHelpers';
+import * as axiosHelpers from '../../axios/axiosHelpers';
 import classes from './FlowerGrid.module.css';
 import FlowerCard from './FlowerCard/FlowerCard';
 
