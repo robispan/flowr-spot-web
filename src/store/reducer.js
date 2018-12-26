@@ -1,4 +1,5 @@
-import * as actionTypes from './actions';
+import * as actionTypes from './actions/actionTypes';
+import { updateObject } from './utility';
 
 const initialState = {
    modalState: null,
@@ -8,53 +9,39 @@ const initialState = {
    name: null
 };
 
+const storeUserData = (state, action) => {
+   return {
+      ...state,
+      modalState: action.payload.showMessage ? "signinSuccessMsg" : null,
+      fname: action.payload.data.userData.first_name,
+      lname: action.payload.data.userData.last_name,
+      name: action.payload.data.userData.first_name + ' ' + action.payload.data.userData.last_name,
+      authToken: action.payload.data.token
+   };
+};
+
+const logout = (state) => {
+   localStorage.removeItem("token");
+   return {
+      ...state,
+      modalState: null,
+      fname: null,
+      lname: null,
+      name: null,
+      authToken: null
+   };
+};
+
 const reducer = (state = initialState, action) => {
    switch (action.type) {
-      case actionTypes.VIEW_SIGNUP:
-         return {
-            ...state,
-            modalState: "signup"
-         };
-      case actionTypes.VIEW_SIGNIN:
-         return {
-            ...state,
-            modalState: "signin"
-         };
-      case actionTypes.VIEW_PROFILE:
-         return {
-            ...state,
-            modalState: "profile"
-         };
-      case actionTypes.MODAL_CANCEL:
-         return {
-            ...state,
-            modalState: null
-         };
-      case actionTypes.SIGNUP_SUCCESS:
-         return {
-            ...state,
-            modalState: "signupSuccessMsg"
-         };
-      case actionTypes.SIGNIN_SUCCESS:
-         return {
-            ...state,
-            modalState: "signinSuccessMsg",
-            fname: action.payload.userData.first_name,
-            lname: action.payload.userData.last_name,
-            name: action.payload.userData.first_name + ' ' + action.payload.userData.last_name,
-            authToken: action.payload.token
-         };
-      case actionTypes.LOGOUT:
-         return {
-            ...state,
-            modalState: null,
-            fname: null,
-            lname: null,
-            name: null,
-            authToken: null
-         };
-      default:
-         return state;
+      case actionTypes.VIEW_SIGNUP: return updateObject(state, { modalState: "signup" });
+      case actionTypes.VIEW_SIGNIN: return updateObject(state, { modalState: "signin" });
+      case actionTypes.VIEW_PROFILE: return updateObject(state, { modalState: "profile" });
+      case actionTypes.SIGNUP_SUCCESS: return updateObject(state, { modalState: "signupSuccessMsg" });
+      case actionTypes.MODAL_CANCEL: return updateObject(state, { modalState: null });
+      case actionTypes.STORE_USER_DATA: return storeUserData(state, action);
+      case actionTypes.LOGOUT: return logout(state);
+      default: return state;
    }
 };
 

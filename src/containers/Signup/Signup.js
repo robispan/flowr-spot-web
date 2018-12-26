@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import axios from '../../axios';
 import { connect } from 'react-redux';
 
 import classes from './Signup.module.css';
 import Form from '../../components/UI/Form/Form';
 import Input from '../../components/UI/Input/Input';
 import Modal from '../../components/UI/Modal/Modal';
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../store/actions/actions';
 
 class Signup extends Component {
    state = {
@@ -58,13 +57,7 @@ class Signup extends Component {
          password: this.state.signupForm.password.value,
          email: this.state.signupForm.email.value
       };
-      axios.post('/users/register', signupData)
-         .then(response => {
-            this.props.onSignupSuccess();
-         })
-         .catch(error => {
-            console.log(error);
-         });
+      this.props.onSignup(signupData);
    }
 
    inputChangedHandler = (event, inputIdentifier) => {
@@ -115,7 +108,7 @@ class Signup extends Component {
 
 const mapDispatchToProps = dispatch => {
    return {
-      onSignupSuccess: () => dispatch({ type: actionTypes.SIGNUP_SUCCESS })
+      onSignup: (signupData) => dispatch(actionCreators.signup(signupData))
    };
 };
 

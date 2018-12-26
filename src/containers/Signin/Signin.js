@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import axios from '../../axios';
 import { connect } from 'react-redux';
 
 import classes from './Signin.module.css';
 import Form from '../../components/UI/Form/Form';
 import Input from '../../components/UI/Input/Input';
 import Modal from '../../components/UI/Modal/Modal';
-import * as actionTypes from '../../store/actions';
+import * as actionCreators from '../../store/actions/actions';
 
 class Signin extends Component {
    state = {
@@ -34,33 +33,7 @@ class Signin extends Component {
          password: this.state.signinForm.password.value,
          email: this.state.signinForm.email.value
       };
-      axios.post('/users/login', signinData)
-         .then(response => {
-            this.signinSuccessHandler(response.data.auth_token);
-         })
-         .catch(error => {
-            console.log(error);
-         });
-   }
-
-   signinSuccessHandler = (token) => {
-      axios.get('/users/me',
-         {
-            headers: {
-               "Authorization": token
-            }
-         })
-         .then(response => {
-            const data = {
-               token: token,
-               userData: response.data.user
-            };
-
-            this.props.onSigninSuccess(data);
-         })
-         .catch(error => {
-            console.log(error);
-         });
+      this.props.onSignin(signinData);
    }
 
    inputChangedHandler = (event, inputIdentifier) => {
@@ -111,7 +84,7 @@ class Signin extends Component {
 
 const mapDispatchToProps = dispatch => {
    return {
-      onSigninSuccess: (data) => dispatch({ type: actionTypes.SIGNIN_SUCCESS, payload: data })
+      onSignin: (data) => dispatch(actionCreators.signin(data))
    };
 };
 

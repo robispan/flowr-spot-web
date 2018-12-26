@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import classes from './Backdrop.module.css';
-import * as actionTypes from '../../../store/actions';
+import * as actionTypes from '../../../store/actions/actionTypes';
 
 const backdrop = (props) => (
    <div

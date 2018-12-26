@@ -6,7 +6,7 @@ import profilePic from '../../assets/images/profile-holder.jpg';
 import ModalButton from '../../components/UI/ModalButton/ModalButton';
 import XButton from '../../components/UI/XButton/XButton';
 import Modal from '../../components/UI/Modal/Modal';
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/actionTypes';
 
 class Profile extends Component {
    render() {

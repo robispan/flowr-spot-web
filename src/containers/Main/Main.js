@@ -8,7 +8,7 @@ import Signin from '../Signin/Signin';
 import Profile from '../Profile/Profile';
 import SignupSuccessMsg from '../../components/UI/SignupSuccessMsg/SignupSuccessMsg';
 import SigninSuccessMsg from '../../components/UI/SigninSuccessMsg/SigninSuccessMsg';
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/actionTypes';
 
 class Main extends Component {
    render() {
