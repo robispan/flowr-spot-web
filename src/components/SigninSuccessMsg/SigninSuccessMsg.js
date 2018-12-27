@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './SigninSuccessMsg.module.css';
 import Modal from '../Modal/Modal';
-import ModalButton from '../ModalButton/ModalButton';
+import ModalButton from '../UI/ModalButton/ModalButton';
 
 const signinSuccessMsg = (props) => (
    <Modal topOffset="361px" >

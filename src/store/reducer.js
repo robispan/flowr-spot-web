@@ -38,7 +38,7 @@ const reducer = (state = initialState, action) => {
       case actionTypes.VIEW_SIGNIN: return updateObject(state, { modalState: "signin" });
       case actionTypes.VIEW_PROFILE: return updateObject(state, { modalState: "profile" });
       case actionTypes.SIGNUP_SUCCESS: return updateObject(state, { modalState: "signupSuccessMsg" });
-      case actionTypes.MODAL_CANCEL: return updateObject(state, { modalState: null });
+      case actionTypes.CLOSE_MODAL: return updateObject(state, { modalState: null });
       case actionTypes.STORE_USER_DATA: return storeUserData(state, action);
       case actionTypes.LOGOUT: return logout(state);
       default: return state;

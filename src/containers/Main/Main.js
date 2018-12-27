@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Banner from '../../components/Banner/Banner';
-import FlowerGrid from '../../components/FlowerGrid/FlowerGrid';
+import Banner from '../../components/UI/Banner/Banner';
+import FlowerGrid from '../FlowerGrid/FlowerGrid';
 import Signup from '../Signup/Signup';
 import Signin from '../Signin/Signin';
 import Profile from '../Profile/Profile';
-import SignupSuccessMsg from '../../components/UI/SignupSuccessMsg/SignupSuccessMsg';
-import SigninSuccessMsg from '../../components/UI/SigninSuccessMsg/SigninSuccessMsg';
+import SignupSuccessMsg from '../../components/SignupSuccessMsg/SignupSuccessMsg';
+import SigninSuccessMsg from '../../components/SigninSuccessMsg/SigninSuccessMsg';
 import * as actionTypes from '../../store/actions/actionTypes';
 
 class Main extends Component {
@@ -57,7 +57,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
    return {
       goToSignin: () => dispatch({ type: actionTypes.VIEW_SIGNIN }),
-      closeModal: () => dispatch({ type: actionTypes.MODAL_CANCEL }),
+      closeModal: () => dispatch({ type: actionTypes.CLOSE_MODAL }),
       goToProfile: () => dispatch({ type: actionTypes.VIEW_PROFILE })
    };
 };

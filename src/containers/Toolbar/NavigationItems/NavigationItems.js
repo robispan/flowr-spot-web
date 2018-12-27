@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import classes from './NavigationItems.module.css';
-import NavigationItem from './NavigationItem/NavigationItem';
+import NavigationItem from '../NavigationItem/NavigationItem';
 import * as actionTypes from '../../../store/actions/actionTypes';
 
 class NavigationItems extends Component {

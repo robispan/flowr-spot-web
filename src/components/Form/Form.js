@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './Form.module.css';
-import ModalButton from '../ModalButton/ModalButton';
+import ModalButton from '../UI/ModalButton/ModalButton';
 
 const form = (props) => (
    <div className={classes.Form} >

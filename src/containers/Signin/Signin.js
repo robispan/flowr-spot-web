@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import classes from './Signin.module.css';
-import Form from '../../components/UI/Form/Form';
+import Form from '../../components/Form/Form';
 import Input from '../../components/UI/Input/Input';
-import Modal from '../../components/UI/Modal/Modal';
+import Modal from '../../components/Modal/Modal';
 import * as actionCreators from '../../store/actions/actions';
 
 class Signin extends Component {

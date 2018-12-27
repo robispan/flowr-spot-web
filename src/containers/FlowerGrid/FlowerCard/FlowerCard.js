@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './FlowerCard.module.css';
-import FavIcon from '../../UI/FavIcon/FavIcon';
+import FavIcon from '../../../components/UI/FavIcon/FavIcon';
 
 const flowerCard = (props) => {
    const btnClassList = [classes.Button];
