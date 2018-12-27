@@ -75,3 +75,33 @@ export const signupSuccess = () => {
       type: actionTypes.SIGNUP_SUCCESS
    };
 };
+
+export const viewSignin = () => {
+   return {
+      type: actionTypes.VIEW_SIGNIN
+   };
+};
+
+export const viewSignup = () => {
+   return {
+      type: actionTypes.VIEW_SIGNUP
+   };
+};
+
+export const viewProfile = () => {
+   return {
+      type: actionTypes.VIEW_PROFILE
+   };
+};
+
+export const closeModal = () => {
+   return {
+      type: actionTypes.CLOSE_MODAL
+   };
+};
+
+export const logout = () => {
+   return {
+      type: actionTypes.LOGOUT
+   };
+};

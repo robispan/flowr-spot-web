@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classes from './Signup.module.css';
 import Form from '../../components/Form/Form';
 import Input from '../../components/UI/Input/Input';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../containers/Modal/Modal';
 import * as actionCreators from '../../store/actions/actions';
 
 class Signup extends Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './SignupSuccessMsg.module.css';
-import Modal from '../Modal/Modal';
+import Modal from '../../containers/Modal/Modal';
 import ModalButton from '../UI/ModalButton/ModalButton';
 
 const signupSuccessMsg = (props) => (

@@ -8,12 +8,12 @@ import Signin from '../Signin/Signin';
 import Profile from '../Profile/Profile';
 import SignupSuccessMsg from '../../components/SignupSuccessMsg/SignupSuccessMsg';
 import SigninSuccessMsg from '../../components/SigninSuccessMsg/SigninSuccessMsg';
-import * as actionTypes from '../../store/actions/actionTypes';
+import * as actionCreators from '../../store/actions/actions';
 
 class Main extends Component {
    render() {
       let modalView;
-      switch (this.props.modal) {
+      switch (this.props.modalState) {
          case "signup":
             modalView = <Signup />;
             break;
@@ -33,13 +33,16 @@ class Main extends Component {
                   goToProfile={this.props.goToProfile} />
             );
             break;
+         case "closeModal":
+            modalView = null;
+            break;
          default:
             modalView = null;
       }
       return (
          <>
             <Banner />
-            <FlowerGrid authToken={this.props.authToken} />
+            <FlowerGrid />
             {modalView}
          </>
       );
@@ -48,17 +51,16 @@ class Main extends Component {
 
 const mapStateToProps = state => {
    return {
-      modal: state.modalState,
-      alertMessage: state.alertMsg,
-      authToken: state.authToken
+      modalState: state.modalState,
+      alertMessage: state.alertMsg
    };
 };
 
 const mapDispatchToProps = dispatch => {
    return {
-      goToSignin: () => dispatch({ type: actionTypes.VIEW_SIGNIN }),
-      closeModal: () => dispatch({ type: actionTypes.CLOSE_MODAL }),
-      goToProfile: () => dispatch({ type: actionTypes.VIEW_PROFILE })
+      goToSignin: () => dispatch(actionCreators.viewSignin()),
+      closeModal: () => dispatch(actionCreators.closeModal()),
+      goToProfile: () => dispatch(actionCreators.viewProfile())
    };
 };
 

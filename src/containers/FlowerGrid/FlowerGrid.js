@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import * as axiosHelpers from '../../axios/axiosHelpers';
 import classes from './FlowerGrid.module.css';
@@ -11,6 +12,7 @@ class FlowerGrid extends Component {
    }
 
    componentDidMount() {
+      // get random flowers on mount
       axiosHelpers.getRandomFlowers()
          .then(res => {
             this.setState({ flowers: res });
@@ -18,8 +20,8 @@ class FlowerGrid extends Component {
    }
 
    componentDidUpdate() {
+      // clean up user data from state on logout
       if (this.state.loggedIn && !this.props.authToken) {
-         // clean up user data from state
          const updatedFlowers = this.state.flowers.map(flower => {
             return {
                ...flower,
@@ -32,6 +34,7 @@ class FlowerGrid extends Component {
             loggedIn: false
          });
       }
+      // display user's favorite flowers on login
       else if (!this.state.loggedIn && this.props.authToken) {
          axiosHelpers.syncFavs(this.state.flowers, this.props.authToken)
             .then(flowersWithFavs => {
@@ -82,5 +85,11 @@ class FlowerGrid extends Component {
    }
 }
 
-export default FlowerGrid;
+const mapStateToProps = state => {
+   return {
+      authToken: state.authToken
+   };
+};
+
+export default connect(mapStateToProps)(FlowerGrid);
 

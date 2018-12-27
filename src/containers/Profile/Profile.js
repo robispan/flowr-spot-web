@@ -5,8 +5,8 @@ import classes from './Profile.module.css';
 import profilePic from '../../assets/images/profile-holder.jpg';
 import ModalButton from '../../components/UI/ModalButton/ModalButton';
 import XButton from '../../components/UI/XButton/XButton';
-import Modal from '../../components/Modal/Modal';
-import * as actionTypes from '../../store/actions/actionTypes';
+import Modal from '../../containers/Modal/Modal';
+import * as actionCreators from '../../store/actions/actions';
 
 class Profile extends Component {
    render() {
@@ -31,7 +31,7 @@ class Profile extends Component {
                <div className={classes.ButtonContainer}>
                   <ModalButton label="Logout" click={this.props.onLogout} />
                </div>
-               <XButton click={this.props.onCancel} />
+               <XButton click={this.props.onModalClose} />
             </div>
          </Modal>
       );
@@ -48,8 +48,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
    return {
-      onCancel: () => dispatch({ type: actionTypes.CLOSE_MODAL }),
-      onLogout: () => dispatch({ type: actionTypes.LOGOUT })
+      onModalClose: () => dispatch(actionCreators.closeModal()),
+      onLogout: () => dispatch(actionCreators.logout())
    };
 };
 

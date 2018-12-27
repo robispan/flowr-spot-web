@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classes from './Signin.module.css';
 import Form from '../../components/Form/Form';
 import Input from '../../components/UI/Input/Input';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../containers/Modal/Modal';
 import * as actionCreators from '../../store/actions/actions';
 
 class Signin extends Component {
@@ -75,7 +75,9 @@ class Signin extends Component {
                         inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
                   ))}
                </Form>
-               <p className={classes.CancelMsg} >I don’t want to Login</p>
+               <p
+                  className={classes.CancelMsg}
+                  onClick={this.props.onModalClose} >I don’t want to Login</p>
             </div>
          </Modal>
       );
@@ -84,7 +86,8 @@ class Signin extends Component {
 
 const mapDispatchToProps = dispatch => {
    return {
-      onSignin: (data) => dispatch(actionCreators.signin(data))
+      onSignin: (data) => dispatch(actionCreators.signin(data)),
+      onModalClose: () => dispatch(actionCreators.closeModal())
    };
 };
 
