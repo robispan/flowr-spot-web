@@ -12,6 +12,11 @@ class SearchBar extends Component {
       this.setState({textEntered: event.target.value});
    }
 
+   searchHandler = (event) => {
+      event.preventDefault();
+      console.log('searching..... ');
+   }
+
    render() {
       return (
          <form onSubmit={this.searchHandler} className={classes.SearchBar} >
@@ -23,7 +28,7 @@ class SearchBar extends Component {
             <img
                src={magnifier}
                alt="magnifier"
-               onClick={this.props.onSearch} />
+               onClick={this.searchHandler} />
          </form>
       );
    }

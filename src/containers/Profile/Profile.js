@@ -5,13 +5,13 @@ import classes from './Profile.module.css';
 import profilePic from '../../assets/images/profile-holder.jpg';
 import ModalButton from '../../components/UI/ModalButton/ModalButton';
 import XButton from '../../components/UI/XButton/XButton';
-import Modal from '../../containers/Modal/Modal';
+import Modal from '../../components/UI/Modal/Modal';
 import * as actionCreators from '../../store/actions/actions';
 
 class Profile extends Component {
    render() {
       return (
-         <Modal topOffset="150px" >
+         <Modal topOffset="150px" close={this.props.close} >
             <div className={classes.Profile}>
                <div className={classes.Header}>
                   <p className={classes.Title} >{this.props.name}</p>

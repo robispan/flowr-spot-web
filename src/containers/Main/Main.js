@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import Banner from '../../components/UI/Banner/Banner';
@@ -9,59 +9,65 @@ import Profile from '../Profile/Profile';
 import SignupSuccessMsg from '../../components/SignupSuccessMsg/SignupSuccessMsg';
 import SigninSuccessMsg from '../../components/SigninSuccessMsg/SigninSuccessMsg';
 import * as actionCreators from '../../store/actions/actions';
+import SearchBar from '../../components/UI/SearchBar/SearchBar';
 
-class Main extends Component {
-   render() {
-      let modalView;
-      switch (this.props.modalState) {
-         case "signup":
-            modalView = <Signup />;
-            break;
-         case "signin":
-            modalView = <Signin />;
-            break;
-         case "profile":
-            modalView = <Profile />;
-            break;
-         case "signupSuccessMsg":
-            modalView = <SignupSuccessMsg dismiss={this.props.goToSignin} />;
-            break;
-         case "signinSuccessMsg":
-            modalView = (
-               <SigninSuccessMsg
-                  dismiss={this.props.closeModal}
-                  goToProfile={this.props.goToProfile} />
-            );
-            break;
-         case "closeModal":
-            modalView = null;
-            break;
-         default:
-            modalView = null;
-      }
-      return (
-         <>
-            <Banner />
-            <FlowerGrid />
-            {modalView}
-         </>
-      );
+const main = (props) => {
+
+   let modalView;
+   switch (props.modalState) {
+      case "signup":
+         modalView = <Signup close={props.closeModal} />;
+         break;
+      case "signin":
+         modalView = <Signin close={props.closeModal} />;
+         break;
+      case "profile":
+         modalView = <Profile close={props.closeModal} />;
+         break;
+      case "signupSuccessMsg":
+         modalView = <SignupSuccessMsg close={props.goToSignin} />;
+         break;
+      case "signinSuccessMsg":
+         modalView = <SigninSuccessMsg close={props.closeModal} goToProfile={props.goToProfile} />;
+         break;
+      default:
+         modalView = null;
    }
+
+   let underToolbar = <Banner />;
+   if (props.loggedIn) {
+      if (props.modalState === "profile") {
+         underToolbar = <div style={{ 'marginTop': '30px' }}></div>;
+      }
+      else {
+         underToolbar = <div style={{ 'margin': '50px 0 30px' }}><SearchBar /></div>;
+      }
+   }
+
+   return (
+      <>
+         {underToolbar}
+         <FlowerGrid />
+         {modalView}
+      </>
+   );
 }
+
 
 const mapStateToProps = state => {
    return {
       modalState: state.modalState,
-      alertMessage: state.alertMsg
+      alertMessage: state.alertMsg,
+      loggedIn: state.authToken !== null
    };
 };
 
 const mapDispatchToProps = dispatch => {
    return {
       goToSignin: () => dispatch(actionCreators.viewSignin()),
-      closeModal: () => dispatch(actionCreators.closeModal()),
-      goToProfile: () => dispatch(actionCreators.viewProfile())
+      goToProfile: () => dispatch(actionCreators.viewProfile()),
+      closeModal: () => dispatch(actionCreators.closeModal())
    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(main);

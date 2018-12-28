@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import classes from './Signup.module.css';
 import Form from '../../components/Form/Form';
 import Input from '../../components/UI/Input/Input';
-import Modal from '../../containers/Modal/Modal';
+import Modal from '../../components/UI/Modal/Modal';
 import * as actionCreators from '../../store/actions/actions';
 
 class Signup extends Component {
@@ -82,7 +82,7 @@ class Signup extends Component {
       }
 
       return (
-         <Modal topOffset="361px" >
+         <Modal topOffset="361px" close={this.props.close} >
             <div className={classes.Signup} >
                <Form
                   submit={this.signupHandler}
@@ -99,7 +99,7 @@ class Signup extends Component {
                         inputChanged={(e) => this.inputChangedHandler(e, formElement.id)} />
                   ))}
                </Form>
-               <p className={classes.CancelMsg} >I don’t want to Register</p>
+               <p onClick={this.props.close} className={classes.CancelMsg} >I don’t want to Register</p>
             </div>
          </Modal>
       );

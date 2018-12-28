@@ -1,17 +1,17 @@
 import React from 'react';
 
 import classes from './SignupSuccessMsg.module.css';
-import Modal from '../../containers/Modal/Modal';
+import Modal from '../UI/Modal/Modal';
 import ModalButton from '../UI/ModalButton/ModalButton';
 
 const signupSuccessMsg = (props) => (
-   <Modal topOffset="361px" >
+   <Modal topOffset="361px" close={props.close} >
       <div className={classes.SignupSuccessMsg}>
          <p className={classes.Message} >
             Congratulations! You have successfully signed up for FlowrSpot!
          </p>
          <div className={classes.ButtonContainer}>
-            <ModalButton label="OK" type="button" click={props.dismiss} />
+            <ModalButton label="OK" type="button" click={props.close} />
          </div>
       </div>
    </Modal>
