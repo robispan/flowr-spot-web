@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import classes from './Toolbar.module.css';
 import Logo from '../../components/Logo/Logo';
-import NavigationItems from './NavigationItems/NavigationItems';
+import NavigationItems from '../../components/NavigationItems/NavigationItems';
 import * as actionCreators from '../../store/actions/actions';
 
 const toolbar = (props) => (
