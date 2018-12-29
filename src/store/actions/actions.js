@@ -1,5 +1,5 @@
-const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
 import * as actionTypes from './actionTypes';
+const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
 
 export const tryAutoSignin = (token) => {
    return (dispatch) => {
