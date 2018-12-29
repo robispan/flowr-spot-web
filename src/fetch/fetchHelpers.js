@@ -1,11 +1,10 @@
-import axios from './axios';
-import axiosproxy from './axiosWithProxy';
+const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
+const baseUrlWithProxy = "https://cors-anywhere.herokuapp.com/" + baseUrl;
 
 export const getRandomFlowers = () => {
-   return axios.get("/flowers/random")
-      .then(response => {
-         return response.data.flowers;
-      })
+   return fetch(baseUrl + 'flowers/random')
+      .then(response => response.json())
+      .then(data => data.flowers)
       .catch(error => {
          console.log(error);
          return null;
@@ -16,9 +15,10 @@ export const syncFavs = (flowers, authToken) => {
    const headers = {
       'Authorization': authToken
    };
-   return axios.get("/flowers/favorites", { headers: headers })
-      .then(response => {
-         const favFlowers = response.data.fav_flowers;
+   return fetch(`${baseUrl}/flowers/favorites`, { headers: headers })
+      .then(res => res.json())
+      .then(data => {
+         const favFlowers = data.fav_flowers;
          const updatedFlowers = [...flowers];
          favFlowers.forEach(favFlower => {
             updatedFlowers.forEach((flower, index) => {
@@ -45,8 +45,13 @@ export const deleteFav = (id, index, authToken, flowers) => {
    const headers = {
       'Authorization': authToken
    };
-   return axiosproxy.delete(`/flowers/${id}/favorites/${favId}`, { headers: headers })
-      .then(_response => {
+   return fetch(`${baseUrlWithProxy}flowers/${id}/favorites/${favId}`,
+      {
+         method: 'DELETE',
+         headers: headers
+      })
+      .then(res => res.json())
+      .then(_data => {
          const updatedFlowers = [...flowers];
          const updatedFlower = {
             ...updatedFlowers[index],
@@ -66,10 +71,16 @@ export const addFav = (id, index, authToken, flowers) => {
    const headers = {
       'Authorization': authToken
    };
-   return axios.post("/flowers/" + id + "/favorites", null, { headers: headers })
-      .then(response => {
+   return fetch(baseUrl + "flowers/" + id + "/favorites",
+      {
+         method: 'POST',
+         headers: headers,
+         body: JSON.stringify({})
+      })
+      .then(res => res.json())
+      .then(data => {
          const updatedFlowers = [...flowers];
-         const favId = response.data.fav_flower.id;
+         const favId = data.fav_flower.id;
          const updatedFlower = {
             ...updatedFlowers[index],
             favorite: true,

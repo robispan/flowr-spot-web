@@ -1,4 +1,4 @@
-import axios from '../../axios/axios';
+const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
 import * as actionTypes from './actionTypes';
 
 export const tryAutoSignin = (token) => {
@@ -6,9 +6,10 @@ export const tryAutoSignin = (token) => {
       const headers = {
          "Authorization": token
       };
-      axios.get('/users/me/refresh', { headers: headers })
-         .then(response => {
-            dispatch(signinSuccess(response.data.auth_token, false));
+      fetch(baseUrl + '/users/me/refresh', { headers: headers })
+         .then(res => res.json())
+         .then(data => {
+            dispatch(signinSuccess(data.auth_token, false));
          })
          .catch(error => {
             console.log(error);
@@ -18,7 +19,12 @@ export const tryAutoSignin = (token) => {
 
 export const signin = (signinData) => {
    return (dispatch) => {
-      axios.post('/users/login', signinData)
+      fetch(baseUrl + '/users/login',
+         {
+            method: 'POST',
+            body: JSON.stringify({ signinData })
+         })
+         .then(res => res.json())
          .then(response => {
             localStorage.setItem("token", response.data.auth_token);
             dispatch(signinSuccess(response.data.auth_token));
@@ -34,13 +40,14 @@ export const signinSuccess = (token, showMessage = true) => {
       const headers = {
          "Authorization": token
       };
-      axios.get('/users/me', { headers: headers })
-         .then(response => {
-            const data = {
+      fetch(baseUrl + '/users/me', { headers: headers })
+         .then(res => res.json())
+         .then(data => {
+            const payload = {
                token: token,
-               userData: response.data.user
+               userData: data.user
             };
-            dispatch(storeUserData(data, showMessage));
+            dispatch(storeUserData(payload, showMessage));
          })
          .catch(error => {
             console.log(error);
@@ -60,7 +67,11 @@ export const storeUserData = (data, showMessage) => {
 
 export const signup = (signupData) => {
    return (dispatch) => {
-      axios.post('/users/register', signupData)
+      fetch(baseUrl + '/users/register',
+         {
+            method: 'POST',
+            body: JSON.stringify({ signupData })
+         })
          .then(_response => {
             dispatch(signupSuccess());
          })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as axiosHelpers from '../../axios/axiosHelpers';
+import { getRandomFlowers, syncFavs, deleteFav, addFav } from '../../fetch/fetchHelpers';
 import classes from './FlowerGrid.module.css';
 import FlowerCard from './FlowerCard/FlowerCard';
 
@@ -13,7 +13,7 @@ class FlowerGrid extends Component {
 
    componentDidMount() {
       // get random flowers on mount
-      axiosHelpers.getRandomFlowers()
+      getRandomFlowers()
          .then(res => {
             this.setState({ flowers: res });
          });
@@ -36,7 +36,7 @@ class FlowerGrid extends Component {
       }
       // display user's favorite flowers on login
       else if (!this.state.loggedIn && this.props.authToken) {
-         axiosHelpers.syncFavs(this.state.flowers, this.props.authToken)
+         syncFavs(this.state.flowers, this.props.authToken)
             .then(flowersWithFavs => {
                this.setState({
                   loggedIn: true,
@@ -48,13 +48,13 @@ class FlowerGrid extends Component {
 
    toggleFav = (id, index) => {
       if (this.state.flowers[index].favorite) {
-         axiosHelpers.deleteFav(id, index, this.props.authToken, this.state.flowers)
+         deleteFav(id, index, this.props.authToken, this.state.flowers)
             .then(updatedFlowers => {
                this.setState({ flowers: updatedFlowers });
             });
          return;
       }
-      axiosHelpers.addFav(id, index, this.props.authToken, this.state.flowers)
+      addFav(id, index, this.props.authToken, this.state.flowers)
          .then(updatedFlowers => {
             this.setState({ flowers: updatedFlowers });
          });
