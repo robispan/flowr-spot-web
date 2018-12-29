@@ -20,17 +20,25 @@ export const syncFavs = (flowers, authToken) => {
       .then(data => {
          const favFlowers = data.fav_flowers;
          const updatedFlowers = [...flowers];
-         favFlowers.forEach(favFlower => {
-            updatedFlowers.forEach((flower, index) => {
+
+         updatedFlowers.some((flower, i) => {
+            if (favFlowers.length === 0) {
+               return true;
+            }
+            favFlowers.some((favFlower, j) => {
                if (favFlower.flower.id === flower.id) {
                   const updatedFlower = {
                      ...flower,
                      favorite: true,
                      favId: favFlower.id
                   };
-                  updatedFlowers[index] = updatedFlower;
+                  updatedFlowers[i] = updatedFlower;
+                  favFlowers.splice(j, 1);
+                  return true;
                }
+               return false;
             });
+            return false;
          });
          return updatedFlowers;
       })

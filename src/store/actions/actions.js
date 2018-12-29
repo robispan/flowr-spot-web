@@ -15,7 +15,7 @@ export const tryAutoSignin = (token) => {
             console.log(error);
          });
    };
-}
+};
 
 export const signin = (signinData) => {
    return (dispatch) => {
