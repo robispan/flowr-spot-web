@@ -6,7 +6,7 @@ export const tryAutoSignin = (token) => {
       const headers = {
          "Authorization": token
       };
-      fetch(baseUrl + '/users/me/refresh', { headers: headers })
+      fetch(baseUrl + 'users/me/refresh', { headers: headers })
          .then(res => res.json())
          .then(data => {
             dispatch(signinSuccess(data.auth_token, false));
@@ -19,15 +19,19 @@ export const tryAutoSignin = (token) => {
 
 export const signin = (signinData) => {
    return (dispatch) => {
-      fetch(baseUrl + '/users/login',
+      const headers = {
+         'Content-Type': 'application/json'
+      };
+      fetch(baseUrl + 'users/login',
          {
             method: 'POST',
-            body: JSON.stringify({ signinData })
+            body: JSON.stringify(signinData),
+            headers: headers
          })
          .then(res => res.json())
-         .then(response => {
-            localStorage.setItem("token", response.data.auth_token);
-            dispatch(signinSuccess(response.data.auth_token));
+         .then(data => {
+            localStorage.setItem("token", data.auth_token);
+            dispatch(signinSuccess(data.auth_token));
          })
          .catch(error => {
             console.log(error);
@@ -38,16 +42,17 @@ export const signin = (signinData) => {
 export const signinSuccess = (token, showMessage = true) => {
    return (dispatch) => {
       const headers = {
-         "Authorization": token
+         "Authorization": token,
+         "Content-Type": "application/json"
       };
-      fetch(baseUrl + '/users/me', { headers: headers })
+      fetch(baseUrl + 'users/me', { headers: headers })
          .then(res => res.json())
-         .then(data => {
-            const payload = {
+         .then(resData => {
+            const data = {
                token: token,
-               userData: data.user
+               userData: resData.user
             };
-            dispatch(storeUserData(payload, showMessage));
+            dispatch(storeUserData(data, showMessage));
          })
          .catch(error => {
             console.log(error);
@@ -67,12 +72,17 @@ export const storeUserData = (data, showMessage) => {
 
 export const signup = (signupData) => {
    return (dispatch) => {
-      fetch(baseUrl + '/users/register',
+      const headers = {
+         'Content-Type': 'application/json'
+      };
+      fetch(baseUrl + 'users/register',
          {
             method: 'POST',
-            body: JSON.stringify({ signupData })
+            body: JSON.stringify(signupData),
+            headers: headers
          })
-         .then(_response => {
+         .then(response => response.json())
+         .then(_data => {
             dispatch(signupSuccess());
          })
          .catch(error => {
