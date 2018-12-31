@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import { getRandomFlowers, syncFavs, deleteFav, addFav } from '../../fetch/fetchHelpers';
 import classes from './FlowerGrid.module.css';
 import FlowerCard from '../../components/FlowerCard/FlowerCard';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class FlowerGrid extends Component {
    state = {
       flowers: null,
-      loggedIn: false
+      loggedIn: false,
+      loading: false
    }
 
    componentDidMount() {
       // get random flowers on mount
       getRandomFlowers()
-         .then(res => {
-            this.setState({ flowers: res });
-         });
+         .then(res => this.setState({ flowers: res }));
    }
 
    componentDidUpdate() {
@@ -50,14 +50,16 @@ class FlowerGrid extends Component {
       if (this.state.flowers[index].favorite) {
          deleteFav(id, index, this.props.authToken, this.state.flowers)
             .then(updatedFlowers => {
-               this.setState({ flowers: updatedFlowers });
+               this.setState({ flowers: updatedFlowers, loading: false });
             });
-         return;
+         this.setState({ loading: true });
+      } else {
+         addFav(id, index, this.props.authToken, this.state.flowers)
+            .then(updatedFlowers => {
+               this.setState({ flowers: updatedFlowers, loading: false });
+            });
+         this.setState({ loading: true });
       }
-      addFav(id, index, this.props.authToken, this.state.flowers)
-         .then(updatedFlowers => {
-            this.setState({ flowers: updatedFlowers });
-         });
    }
 
    render() {
@@ -69,6 +71,7 @@ class FlowerGrid extends Component {
       }
       return (
          <div className={classes.FlowerGrid}>
+            {this.state.loading ? <Spinner /> : null}
             {flowers.map((flower, i) => (
                <FlowerCard
                   key={flower.id}
