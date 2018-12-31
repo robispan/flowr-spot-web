@@ -58,7 +58,7 @@ class Signin extends Component {
       }
 
       return (
-         <Modal topOffset="361px" close={this.props.close} >
+         <Modal topOffset="1" close={this.props.close} >
             <div className={classes.Signin} >
                <Form
                   submit={this.signinHandler}

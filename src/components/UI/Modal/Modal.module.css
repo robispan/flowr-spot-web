@@ -1,12 +1,44 @@
+.Container {
+   position: absolute;
+   z-index: 20;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   animation: fadeIn .05s ease-out forwards;
+}
+
 .Modal {
    border-radius: 3px;
    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
    text-align: center;
    position: absolute;
-   top: 0;
    left: 50%;
    transform: translateX(-50%); 
-   z-index: 200;
+   z-index: 300;
    color: #334144;
    background: white;
+}
+
+.top1 {
+   animation: slideDown1 .07s ease-out forwards;
+}
+
+.top2 {
+   animation: slideDown2 .07s ease-out forwards;
+}
+
+@keyframes fadeIn {
+   0% { opacity: 0.5; }
+   100% { opacity: 1; }
+}
+
+@keyframes slideDown1 {
+   0% { top: 357px; }
+   100% { top: 361px; }
+}
+
+@keyframes slideDown2 {
+   0% { top: 146px; }
+   100% { top: 150px; }
 }

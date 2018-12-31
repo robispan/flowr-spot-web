@@ -5,7 +5,7 @@ import Modal from '../UI/Modal/Modal';
 import ModalButton from '../UI/ModalButton/ModalButton';
 
 const signinSuccessMsg = (props) => (
-   <Modal topOffset="361px" close={props.close} >
+   <Modal topOffset="1" close={props.close} >
       <div className={classes.SigninSuccessMsg}>
          <p className={classes.Message} >
             Congratulations! You have successfully logged into FlowrSpot!

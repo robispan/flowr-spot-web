@@ -82,7 +82,7 @@ class Signup extends Component {
       }
 
       return (
-         <Modal topOffset="361px" close={this.props.close} >
+         <Modal topOffset="1" close={this.props.close} >
             <div className={classes.Signup} >
                <Form
                   submit={this.signupHandler}

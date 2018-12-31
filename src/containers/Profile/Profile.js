@@ -11,7 +11,7 @@ import * as actionCreators from '../../store/actions/actions';
 class Profile extends Component {
    render() {
       return (
-         <Modal topOffset="150px" close={this.props.close} >
+         <Modal topOffset="2" close={this.props.close} >
             <div className={classes.Profile}>
                <div className={classes.Header}>
                   <p className={classes.Title} >{this.props.name}</p>
