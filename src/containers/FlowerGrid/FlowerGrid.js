@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getRandomFlowers, syncFavs, deleteFav, addFav } from '../../fetch/fetchHelpers';
+import { getRandomFlowers, syncFavs, deleteFav, addFav } from '../../shared/fetch';
 import classes from './FlowerGrid.module.css';
 import FlowerCard from '../../components/FlowerCard/FlowerCard';
 import Spinner from '../../components/UI/Spinner/Spinner';

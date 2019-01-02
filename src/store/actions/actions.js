@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
+import { baseUrl } from '../../shared/fetch';
 
 export const tryAutoSignin = (token) => {
    return (dispatch) => {
@@ -70,6 +70,13 @@ export const storeUserData = (data, showMessage) => {
    };
 };
 
+export const logout = () => {
+   localStorage.removeItem("token");
+   return {
+      type: actionTypes.LOGOUT
+   };
+};
+
 export const signup = (signupData) => {
    return (dispatch) => {
       const headers = {
@@ -97,6 +104,8 @@ export const signupSuccess = () => {
    };
 };
 
+
+
 export const viewSignin = () => {
    return {
       type: actionTypes.VIEW_SIGNIN
@@ -118,11 +127,5 @@ export const viewProfile = () => {
 export const closeModal = () => {
    return {
       type: actionTypes.CLOSE_MODAL
-   };
-};
-
-export const logout = () => {
-   return {
-      type: actionTypes.LOGOUT
    };
 };

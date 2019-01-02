@@ -5,7 +5,7 @@
    height: 100%;
    top: 0;
    left: 0;
-   animation: fadeIn .05s ease-out forwards;
+   animation: fadeIn .15s ease-out forwards;
 }
 
 .Modal {
@@ -21,24 +21,24 @@
 }
 
 .top1 {
-   animation: slideDown1 .07s ease-out forwards;
+   animation: slideDown1 .2s ease-out forwards;
 }
 
 .top2 {
-   animation: slideDown2 .07s ease-out forwards;
+   animation: slideDown2 .2s ease-out forwards;
 }
 
 @keyframes fadeIn {
-   0% { opacity: 0.5; }
+   0% { opacity: 0; }
    100% { opacity: 1; }
 }
 
 @keyframes slideDown1 {
-   0% { top: 357px; }
+   0% { top: 340px; }
    100% { top: 361px; }
 }
 
 @keyframes slideDown2 {
-   0% { top: 146px; }
+   0% { top: 130px; }
    100% { top: 150px; }
 }

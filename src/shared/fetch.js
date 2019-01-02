@@ -1,5 +1,5 @@
-const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
-const baseUrlWithProxy = "https://cors-anywhere.herokuapp.com/" + baseUrl;
+export const baseUrl = "https://flowrspot-api.herokuapp.com/api/v1/";
+export const baseUrlWithProxy = "https://cors-anywhere.herokuapp.com/" + baseUrl;
 
 export const getRandomFlowers = () => {
    return fetch(baseUrl + 'flowers/random')
