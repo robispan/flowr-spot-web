@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 import { getRandomFlowers, syncFavs, deleteFav, addFav } from '../../shared/fetch';
 import classes from './FlowerGrid.module.css';
 import FlowerCard from '../../components/FlowerCard/FlowerCard';
-import Spinner from '../../components/UI/Spinner/Spinner';
 
 class FlowerGrid extends Component {
    state = {
       flowers: null,
-      loggedIn: false,
-      loading: false
+      loggedIn: false
    }
 
    componentDidMount() {
@@ -50,15 +48,13 @@ class FlowerGrid extends Component {
       if (this.state.flowers[index].favorite) {
          deleteFav(id, index, this.props.authToken, this.state.flowers)
             .then(updatedFlowers => {
-               this.setState({ flowers: updatedFlowers, loading: false });
+               this.setState({ flowers: updatedFlowers });
             });
-         this.setState({ loading: true });
       } else {
          addFav(id, index, this.props.authToken, this.state.flowers)
             .then(updatedFlowers => {
-               this.setState({ flowers: updatedFlowers, loading: false });
+               this.setState({ flowers: updatedFlowers });
             });
-         this.setState({ loading: true });
       }
    }
 
@@ -71,7 +67,6 @@ class FlowerGrid extends Component {
       }
       return (
          <div className={classes.FlowerGrid}>
-            {this.state.loading ? <Spinner /> : null}
             {flowers.map((flower, i) => (
                <FlowerCard
                   key={flower.id}
@@ -95,4 +90,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(FlowerGrid);
-
