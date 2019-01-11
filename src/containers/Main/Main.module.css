@@ -1,4 +1,4 @@
-.Layout {
+.Main {
    width: 1220px;
    min-height: 1300px;
    margin: 60px 40px;
@@ -7,7 +7,7 @@
 }
 
 @media (min-width: 1320px) {
-   .Layout {
+   .Main {
       margin: 60px auto;
    }
 }

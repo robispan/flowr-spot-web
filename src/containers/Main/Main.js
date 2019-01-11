@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import classes from './Main.module.css';
+import Toolbar from '../../containers/Toolbar/Toolbar';
 import Banner from '../../components/UI/Banner/Banner';
 import FlowerGrid from '../FlowerGrid/FlowerGrid';
 import Signup from '../Signup/Signup';
@@ -45,11 +47,12 @@ const main = (props) => {
    }
 
    return (
-      <>
+      <div className={classes.Main} >
+         <Toolbar />
          {underToolbar}
          <FlowerGrid />
          {modalView}
-      </>
+      </div>
    );
 }
 
