@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { getRandomFlowers, syncFavs, deleteFav, addFav } from '../../shared/fetch';
 import classes from './FlowerGrid.module.css';
-import FlowerCard from '../../components/FlowerCard/FlowerCard';
+import FlowerCard from './FlowerCard/FlowerCard';
 
 class FlowerGrid extends Component {
    state = {
