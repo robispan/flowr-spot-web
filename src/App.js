@@ -30,10 +30,7 @@ class App extends Component {
             margin: 60px 40px;
             border: 1px solid #ddd;
             position: relative;
-            
-          }
             @media (min-width: 1320px) {
-              .App {
               margin: 60px auto;
             }
           }
