@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import classes from './Signup.module.css';
 import Form from '../Form/Form';
-import Input from '../Form/Input/Input';
+import Input from '../Form/Input';
 import * as actionCreators from '../../../store/actions/actions';
 
 class Signup extends Component {
@@ -81,7 +80,7 @@ class Signup extends Component {
     }
 
     return (
-      <div className={classes.Signup}>
+      <div className="Signup">
         <Form
           submit={this.signupHandler}
           title="Create an Account"
@@ -99,9 +98,29 @@ class Signup extends Component {
             />
           ))}
         </Form>
-        <p onClick={this.props.close} className={classes.CancelMsg}>
+        <p onClick={this.props.close} className="CancelMsg">
           I don’t want to Register
         </p>
+
+        <style jsx>{`
+          .Signup {
+            width: 440px;
+            padding: 30px;
+            box-sizing: border-box;
+          }
+          .CancelMsg {
+            height: 13px;
+            width: 380px;
+            opacity: 0.5;
+            font-size: 13px;
+            line-height: 1;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            position: absolute;
+            cursor: pointer;
+          }
+        `}</style>
       </div>
     );
   }

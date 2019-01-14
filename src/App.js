@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Toolbar from './components/Toolbar/Toolbar';
-import Banner from './components/Banner/Banner';
+import Banner from './components/Banner';
 import FlowerGrid from './containers/FlowerGrid/FlowerGrid';
 import Modal from './containers/Modal/Modal';
 import * as actionCreators from './store/actions/actions';

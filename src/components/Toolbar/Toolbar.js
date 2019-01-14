@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import classes from './Toolbar.module.css';
-import Logo from './Logo/Logo';
-import NavigationItems from './NavigationItems/NavigationItems';
+import Logo from './Logo';
+import NavigationItems from './NavigationItems';
 import * as actionCreators from '../../store/actions/actions';
 
 const toolbar = props => (
-  <header className={classes.Toolbar}>
+  <header className="Toolbar">
     <a href="/">
       <Logo />
     </a>
@@ -20,6 +19,16 @@ const toolbar = props => (
         name={props.name}
       />
     </nav>
+
+    <style jsx>{`
+      .Toolbar {
+        height: 80px;
+        box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    `}</style>
   </header>
 );
 

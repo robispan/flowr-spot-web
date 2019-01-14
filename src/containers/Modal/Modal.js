@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import classes from './Modal.module.css';
-import BackDrop from './Backdrop/Backdrop';
+import BackDrop from './Backdrop';
 import Signup from './Signup/Signup';
 import Signin from './Signin/Signin';
-import Profile from './Profile/Profile';
-import SignupSuccessMsg from './Signup/SignupSuccessMsg/SignupSuccessMsg';
-import SigninSuccessMsg from './Signin/SigninSuccessMsg/SigninSuccessMsg';
+import Profile from './Profile';
+import SignupSuccessMsg from './Signup/SignupSuccessMsg';
+import SigninSuccessMsg from './Signin/SigninSuccessMsg';
 import * as actionCreators from '../../store/actions/actions';
 
 const modal = props => {
@@ -42,12 +41,40 @@ const modal = props => {
       content = null;
   }
 
-  const classList = [classes['Modal'], classes['top' + topOffset]];
+  const classList = ['Modal', 'top' + topOffset];
 
   return (
-    <div className={classes.Container}>
+    <div className="Container">
       <BackDrop click={props.closeModal} />
       <div className={classList.join(' ')}>{content}</div>
+
+      <style jsx>{`
+        .Container {
+          position: absolute;
+          z-index: 20;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
+        .Modal {
+          border-radius: 3px;
+          box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.05);
+          text-align: center;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 300;
+          color: #334144;
+          background: white;
+        }
+        .top1 {
+          top: 361px;
+        }
+        .top2 {
+          top: 150px;
+        }
+      `}</style>
     </div>
   );
 };

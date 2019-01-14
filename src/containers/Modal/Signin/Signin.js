@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import classes from './Signin.module.css';
 import Form from '../Form/Form';
-import Input from '../Form/Input/Input';
+import Input from '../Form/Input';
 import * as actionCreators from '../../../store/actions/actions';
 
 class Signin extends Component {
@@ -57,7 +56,7 @@ class Signin extends Component {
     }
 
     return (
-      <div className={classes.Signin}>
+      <div className="Signin">
         <Form
           submit={this.signinHandler}
           title="Welcome Back"
@@ -75,9 +74,29 @@ class Signin extends Component {
             />
           ))}
         </Form>
-        <p className={classes.CancelMsg} onClick={this.props.onModalClose}>
+        <p className="CancelMsg" onClick={this.props.onModalClose}>
           I don’t want to Login
         </p>
+
+        <style jsx>{`
+          .Signin {
+            width: 440px;
+            padding: 30px;
+            box-sizing: border-box;
+          }
+          .CancelMsg {
+            height: 13px;
+            width: 380px;
+            opacity: 0.5;
+            font-size: 13px;
+            line-height: 1;
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            position: absolute;
+            cursor: pointer;
+          }
+        `}</style>
       </div>
     );
   }
